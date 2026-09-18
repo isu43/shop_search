@@ -2,266 +2,151 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>いい街こまつプレミアム｜取扱店検索</title>
 
 <style>
-* {
-    box-sizing: border-box;
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,"Yu Gothic","Meiryo",sans-serif;
+background:#f5f7fa;
+color:#222;
 }
 
-body {
-    margin: 0;
-    font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Hiragino Kaku Gothic ProN",
-        "Yu Gothic",
-        "Meiryo",
-        sans-serif;
-    background: #f5f7fa;
-    color: #222;
+header{
+background:linear-gradient(135deg,#0b5cab,#1687d9);
+color:white;
+padding:40px 20px 55px;
+text-align:center;
 }
 
-/* ヘッダー */
-header {
-    background: linear-gradient(135deg, #0b5cab, #1687d9);
-    color: white;
-    padding: 42px 20px 55px;
-    text-align: center;
+header h1{
+margin:0;
+font-size:clamp(28px,5vw,42px);
 }
 
-header h1 {
-    margin: 0 0 12px;
-    font-size: clamp(25px, 5vw, 42px);
-    font-weight: 800;
+.container{
+max-width:1200px;
+margin:-25px auto 50px;
+padding:0 18px;
 }
 
-header p {
-    margin: 0;
-    opacity: .95;
-    font-size: 15px;
+.search-panel{
+background:white;
+padding:22px;
+border-radius:18px;
+box-shadow:0 8px 30px rgba(0,0,0,.08);
 }
 
-/* メイン */
-.container {
-    max-width: 1200px;
-    margin: -25px auto 50px;
-    padding: 0 18px;
+.search-row{
+display:grid;
+grid-template-columns:2fr 1fr 1fr;
+gap:12px;
+margin-bottom:12px;
 }
 
-/* 検索ボックス */
-.search-panel {
-    background: white;
-    border-radius: 18px;
-    padding: 25px;
-    box-shadow: 0 8px 30px rgba(0,0,0,.08);
-    margin-bottom: 25px;
+input,select{
+height:48px;
+padding:0 14px;
+border:1px solid #d7dce2;
+border-radius:10px;
+font-size:15px;
 }
 
-.search-title {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 18px;
+.result-info{
+display:flex;
+justify-content:space-between;
+margin:20px 5px;
+font-weight:700;
 }
 
-.search-row {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr auto;
-    gap: 12px;
+.result-info span{
+font-size:22px;
+color:#0b5cab;
 }
 
-input,
-select,
-button {
-    height: 48px;
-    border-radius: 10px;
-    border: 1px solid #d7dce2;
-    font-size: 15px;
+.store-grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+gap:18px;
 }
 
-input,
-select {
-    padding: 0 14px;
-    background: white;
+.store-card{
+background:white;
+border-radius:16px;
+padding:20px;
+box-shadow:0 4px 16px rgba(0,0,0,.06);
+transition:.2s;
 }
 
-input:focus,
-select:focus {
-    outline: 3px solid rgba(22,135,217,.15);
-    border-color: #1687d9;
+.store-card:hover{
+transform:translateY(-3px);
 }
 
-button {
-    padding: 0 22px;
-    border: 0;
-    cursor: pointer;
-    font-weight: 700;
+.category{
+display:inline-block;
+background:#e9f4ff;
+color:#0b5cab;
+padding:5px 10px;
+border-radius:20px;
+font-size:12px;
+font-weight:bold;
+margin-bottom:10px;
 }
 
-.search-button {
-    background: #0b5cab;
-    color: white;
+.store-name{
+font-size:20px;
+font-weight:bold;
+margin-bottom:8px;
 }
 
-.search-button:hover {
-    background: #084b8e;
+.facility{
+color:#0b5cab;
+font-size:13px;
+margin-bottom:10px;
 }
 
-.reset-button {
-    background: #eef1f4;
-    color: #333;
+.address{
+font-size:14px;
+color:#555;
+line-height:1.6;
 }
 
-/* 件数 */
-.result-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 20px 3px;
+.map-button{
+display:block;
+margin-top:15px;
+padding:11px;
+text-align:center;
+text-decoration:none;
+background:#f1f7fc;
+color:#0b5cab;
+border-radius:8px;
+font-weight:bold;
 }
 
-.result-count {
-    font-weight: 700;
+.no-result{
+display:none;
+background:white;
+padding:60px;
+border-radius:15px;
+text-align:center;
+color:#777;
 }
 
-.result-count span {
-    color: #0b5cab;
-    font-size: 22px;
+.loading{
+text-align:center;
+padding:60px;
+font-size:18px;
+color:#666;
 }
 
-/* カード */
-.store-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
+@media(max-width:700px){
+.search-row{
+grid-template-columns:1fr;
 }
-
-.store-card {
-    background: white;
-    border-radius: 16px;
-    padding: 22px;
-    box-shadow: 0 4px 18px rgba(0,0,0,.06);
-    transition: .2s;
-    border: 1px solid #edf0f3;
-}
-
-.store-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(0,0,0,.1);
-}
-
-.category {
-    display: inline-block;
-    background: #e9f4ff;
-    color: #0b5cab;
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 700;
-    margin-bottom: 12px;
-}
-
-.store-name {
-    font-size: 19px;
-    font-weight: 800;
-    line-height: 1.5;
-    margin-bottom: 5px;
-}
-
-.furigana {
-    color: #777;
-    font-size: 12px;
-    margin-bottom: 15px;
-}
-
-.address {
-    font-size: 14px;
-    color: #555;
-    line-height: 1.7;
-    min-height: 48px;
-}
-
-.map-button {
-    display: block;
-    text-align: center;
-    text-decoration: none;
-    background: #f1f7fc;
-    color: #0b5cab;
-    border-radius: 9px;
-    padding: 11px;
-    margin-top: 16px;
-    font-size: 14px;
-    font-weight: 700;
-}
-
-.map-button:hover {
-    background: #dceefa;
-}
-
-/* 空結果 */
-.no-result {
-    background: white;
-    border-radius: 15px;
-    text-align: center;
-    padding: 60px 20px;
-    color: #777;
-    display: none;
-}
-
-/* フッター */
-footer {
-    text-align: center;
-    color: #777;
-    font-size: 12px;
-    padding: 30px 20px;
-}
-
-footer a {
-    color: #0b5cab;
-}
-
-/* スマホ */
-@media (max-width: 900px) {
-    .store-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .search-row {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .search-button,
-    .reset-button {
-        width: 100%;
-    }
-}
-
-@media (max-width: 600px) {
-    header {
-        padding: 30px 15px 45px;
-    }
-
-    .container {
-        padding: 0 12px;
-    }
-
-    .search-panel {
-        padding: 18px;
-    }
-
-    .search-row {
-        grid-template-columns: 1fr;
-    }
-
-    .store-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .result-info {
-        margin-top: 15px;
-    }
 }
 </style>
 </head>
@@ -269,587 +154,202 @@ footer a {
 <body>
 
 <header>
-    <h1>いい街こまつプレミアム</h1>
-    <p>取扱店検索</p>
+<h1>いい街こまつプレミアム</h1>
+<p>取扱店検索</p>
 </header>
 
-<main class="container">
+<div class="container">
 
-    <section class="search-panel">
+<div class="search-panel">
 
-        <div class="search-title">
-            🔍 取扱店を検索
-        </div>
+<div class="search-row">
 
-        <div class="search-row">
+<input id="keyword" placeholder="店舗名・住所で検索">
 
-            <input
-                type="search"
-                id="keyword"
-                placeholder="店舗名・フリガナ・住所で検索"
-            >
+<select id="category">
+<option value="">すべての業種</option>
+</select>
 
-            <select id="category">
-                <option value="">すべての業種</option>
-            </select>
+<select id="area">
+<option value="">すべてのエリア</option>
+</select>
 
-            <select id="area">
-                <option value="">すべてのエリア</option>
-            </select>
+</div>
 
-            <button class="search-button" onclick="searchStores()">
-                検索
-            </button>
+</div>
 
-        </div>
+<div class="result-info">
+<div>該当店舗：<span id="resultCount">0</span>店</div>
+</div>
 
-        <div style="margin-top:10px;">
-            <button class="reset-button" onclick="resetSearch()">
-                条件をクリア
-            </button>
-        </div>
+<div id="loading" class="loading">
+店舗データを読み込み中...
+</div>
 
-    </section>
+<div id="storeGrid" class="store-grid"></div>
 
-    <div class="result-info">
-        <div class="result-count">
-            該当店舗：
-            <span id="resultCount">0</span> 店
-        </div>
-    </div>
+<div id="noResult" class="no-result">
+<h3>店舗が見つかりません</h3>
+<p>検索条件を変更してください。</p>
+</div>
 
-    <section id="storeGrid" class="store-grid"></section>
-
-    <div id="noResult" class="no-result">
-        <div style="font-size:40px;">🔍</div>
-        <h3>店舗が見つかりません</h3>
-        <p>検索条件を変更して、もう一度お試しください。</p>
-    </div>
-
-</main>
-
-<footer>
-    <p>
-        掲載情報は
-        <a
-            href="https://www.city.komatsu.lg.jp/soshiki/1018/shoukoushinkou_monodukuri/14337.html"
-            target="_blank"
-            rel="noopener"
-        >
-            小松市公式サイト
-        </a>
-        の公開情報をもとにしています。
-    </p>
-    <p>※最新の情報は小松市公式サイトをご確認ください。</p>
-</footer>
-
+</div>
 
 <script>
 
-/*
-====================================================
-  取扱店データ
-====================================================
+let stores=[];
 
-  実際の運用では、ここに小松市公式ページの
-  「業種別一覧」のデータを登録します。
+const keyword=document.getElementById("keyword");
+const category=document.getElementById("category");
+const area=document.getElementById("area");
+const grid=document.getElementById("storeGrid");
+const count=document.getElementById("resultCount");
+const loading=document.getElementById("loading");
+const noResult=document.getElementById("noResult");
 
-  店舗を追加する場合は、
+async function loadStores(){
 
-  {
-      category: "19.飲食",
-      name: "店舗名",
-      kana: "フリガナ",
-      address: "小松市○○町○○"
-  }
+try{
 
-  を追加してください。
-*/
+const response=await fetch("stores.json");
+const data=await response.json();
 
-const stores = [
+stores=Array.isArray(data)?data:(data.parsed_facility_stores||[]);
 
-    {
-        category: "30.百貨店･総合スーパー",
-        name: "アル･プラザ小松（直営売場）",
-        kana: "アル・プラザコマツ（チョクエイウリバ）",
-        address: "園町ハ23番地1"
-    },
+stores=stores.map(s=>({
+name:s.name||"",
+kana:s.kana||"",
+category:s.category||"その他",
+address:s.address||"",
+facility:s.facility||""
+}));
 
-    {
-        category: "1.衣料品･呉服･寝具･手芸材料",
-        name: "アルプラザ小松店 ジグザグ",
-        kana: "アルプラザコマツテン ジグザグ",
-        address: "園町ハ23番地1アルプラザ小松2F"
-    },
-
-    {
-        category: "1.衣料品･呉服･寝具･手芸材料",
-        name: "リミテッド アル･プラザ小松店",
-        kana: "リミテッド アルプラザコマツテン",
-        address: "園町ハ23番地1"
-    },
-
-    {
-        category: "1.衣料品･呉服･寝具･手芸材料",
-        name: "Red WOOD",
-        kana: "レッド ウッド",
-        address: "小松市"
-    },
-
-    {
-        category: "19.飲食",
-        name: "＆sand 小松店",
-        kana: "アンドサンド コマツテン",
-        address: "園町ハ23番地1"
-    },
-
-    {
-        category: "19.飲食",
-        name: "カフェテラス ミツバ",
-        kana: "カフェテラス ミツバ",
-        address: "小松市"
-    },
-
-    {
-        category: "19.飲食",
-        name: "らうめん侍",
-        kana: "ラウメンサムライ",
-        address: "小松市"
-    },
-
-    {
-        category: "19.飲食",
-        name: "和食三宝",
-        kana: "ワショクサンポウ",
-        address: "小松市"
-    },
-
-    {
-        category: "34.その他",
-        name: "株式会社赤ちゃん本舗 アル・プラザ小松店",
-        kana: "カブシキガイシャアカチャンホンポ アル・プラザコマツテン",
-        address: "園町ハ23番地1"
-    },
-
-    {
-        category: "34.その他",
-        name: "小松ロフト",
-        kana: "コマツロフト",
-        address: "園町ハ23番地1"
-    },
-
-    {
-        category: "34.その他",
-        name: "無印良品 アル・プラザ小松",
-        kana: "ムジルシリョウヒン アル・プラザコマツ",
-        address: "園町ハ23番地1"
-    },
-
-    {
-        category: "30.百貨店･総合スーパー",
-        name: "イオン小松店(直営売場)",
-        kana: "イオンコマツテン（チョクエイウリバ）",
-        address: "平面町ア69"
-    },
-
-    {
-        category: "19.飲食",
-        name: "麺房廣見",
-        kana: "メンボウヒロミ",
-        address: "平面町ア69"
-    },
-
-    {
-        category: "30.百貨店･総合スーパー",
-        name: "イオンスタイル新小松",
-        kana: "イオンスタイルシンコマツ",
-        address: "清六町315番地 イオンモール新小松"
-    },
-
-    {
-        category: "1.衣料品･呉服･寝具･手芸材料",
-        name: "earth music&ecology natural store イオンモール新小松店",
-        kana: "アース ミュージックアンドエコロジー ナチュラル ストア",
-        address: "清六町315番地 イオンモール新小松 1F"
-    },
-
-    {
-        category: "1.衣料品･呉服･寝具･手芸材料",
-        name: "WEGO イオンモール新小松店",
-        kana: "ウィゴー イオンモールシンコマツテン",
-        address: "清六町315番地 イオンモール新小松"
-    },
-
-    {
-        category: "1.衣料品･呉服･寝具･手芸材料",
-        name: "ZARA イオンモール新小松",
-        kana: "ザラ イオンモールシンコマツ",
-        address: "清六町315番地 イオンモール新小松"
-    },
-
-    {
-        category: "1.衣料品･呉服･寝具･手芸材料",
-        name: "ユニクロ イオンモール新小松店",
-        kana: "ユニクロ イオンモールシンコマツテン",
-        address: "清六町315番地 イオンモール新小松"
-    },
-
-    {
-        category: "8.各種食料品",
-        name: "カルディコーヒーファーム イオンモール新小松店",
-        kana: "カルディコーヒーファーム イオンモールシンコマツテン",
-        address: "清六町315番地 イオンモール新小松"
-    },
-
-    {
-        category: "8.各種食料品",
-        name: "久世福商店 イオンモール新小松店",
-        kana: "クゼフクショウテン イオンモールシンコマツテン",
-        address: "清六町315番地 イオンモール新小松"
-    },
-
-    {
-        category: "19.飲食",
-        name: "スターバックスコーヒー イオンモール新小松店",
-        kana: "スターバックスコーヒー イオンモールシンコマツテン",
-        address: "清六町315番地 イオンモール新小松"
-    },
-
-    {
-        category: "19.飲食",
-        name: "丸亀製麺 イオンモール新小松",
-        kana: "マルガメセイメン イオンモールシンコマツ",
-        address: "清六町315番地 イオンモール新小松"
-    },
-
-    {
-        category: "19.飲食",
-        name: "もりもり寿し イオンモール新小松店",
-        kana: "モリモリズシ イオンモールシンコマツテン",
-        address: "清六町315番地 イオンモール新小松"
-    },
-
-    {
-        category: "21.理容･美容･エステ",
-        name: "ラフィネ イオンモール新小松店",
-        kana: "ラフィネ イオンモールシンコマツテン",
-        address: "清六町315番地 イオンモール新小松"
-    },
-
-    {
-        category: "26.旅行",
-        name: "JTB イオンモール新小松店",
-        kana: "ジェイティービー イオンモールシンコマツテン",
-        address: "清六町315番地 イオンモール新小松"
-    },
-
-    {
-        category: "34.その他",
-        name: "PLAZA イオンモール新小松店",
-        kana: "プラザ イオンモールシンコマツテン",
-        address: "清六町315番地 イオンモール新小松"
-    }
-
-];
-
-
-/* ============================
-   初期化
-============================ */
-
-const keywordInput = document.getElementById("keyword");
-const categorySelect = document.getElementById("category");
-const areaSelect = document.getElementById("area");
-const storeGrid = document.getElementById("storeGrid");
-const resultCount = document.getElementById("resultCount");
-const noResult = document.getElementById("noResult");
-
-
-function initialize() {
-
-    // 業種
-    const categories = [
-        ...new Set(
-            stores.map(store => store.category)
-        )
-    ].sort();
-
-    categories.forEach(category => {
-
-        const option = document.createElement("option");
-
-        option.value = category;
-        option.textContent = category;
-
-        categorySelect.appendChild(option);
-
-    });
-
-
-    // 地域
-    const areas = [
-        ...new Set(
-            stores.map(store => {
-
-                const address = store.address;
-
-                if (address.includes("清六町")) {
-                    return "清六町";
-                }
-
-                if (address.includes("園町")) {
-                    return "園町";
-                }
-
-                if (address.includes("平面町")) {
-                    return "平面町";
-                }
-
-                return "その他";
-
-            })
-        )
-    ];
-
-    areas.forEach(area => {
-
-        const option = document.createElement("option");
-
-        option.value = area;
-        option.textContent = area;
-
-        areaSelect.appendChild(option);
-
-    });
-
-
-    displayStores(stores);
-}
-
-
-/* ============================
-   検索
-============================ */
-
-function searchStores() {
-
-    const keyword =
-        keywordInput.value
-        .trim()
-        .toLowerCase();
-
-    const category =
-        categorySelect.value;
-
-    const area =
-        areaSelect.value;
-
-
-    const results = stores.filter(store => {
-
-        const searchText = (
-            store.name +
-            " " +
-            store.kana +
-            " " +
-            store.address
-        ).toLowerCase();
-
-
-        const keywordMatch =
-            !keyword ||
-            searchText.includes(keyword);
-
-
-        const categoryMatch =
-            !category ||
-            store.category === category;
-
-
-        const areaMatch =
-            !area ||
-            getArea(store.address) === area;
-
-
-        return (
-            keywordMatch &&
-            categoryMatch &&
-            areaMatch
-        );
-
-    });
-
-
-    displayStores(results);
-}
-
-
-/* ============================
-   エリア判定
-============================ */
-
-function getArea(address) {
-
-    if (address.includes("清六町")) {
-        return "清六町";
-    }
-
-    if (address.includes("園町")) {
-        return "園町";
-    }
-
-    if (address.includes("平面町")) {
-        return "平面町";
-    }
-
-    return "その他";
-}
-
-
-/* ============================
-   店舗表示
-============================ */
-
-function displayStores(results) {
-
-    storeGrid.innerHTML = "";
-
-    resultCount.textContent = results.length;
-
-
-    if (results.length === 0) {
-
-        noResult.style.display = "block";
-
-        return;
-
-    }
-
-
-    noResult.style.display = "none";
-
-
-    results.forEach(store => {
-
-        const card =
-            document.createElement("article");
-
-        card.className = "store-card";
-
-
-        const mapUrl =
-            "https://www.google.com/maps/search/?api=1&query=" +
-            encodeURIComponent(
-                "石川県小松市 " +
-                store.address
-            );
-
-
-        card.innerHTML = `
-
-            <div class="category">
-                ${escapeHTML(store.category)}
-            </div>
-
-            <div class="store-name">
-                ${escapeHTML(store.name)}
-            </div>
-
-            <div class="furigana">
-                ${escapeHTML(store.kana)}
-            </div>
-
-            <div class="address">
-                📍 ${escapeHTML(store.address)}
-            </div>
-
-            <a
-                class="map-button"
-                href="${mapUrl}"
-                target="_blank"
-                rel="noopener"
-            >
-                🗺️ Googleマップで見る
-            </a>
-
-        `;
-
-
-        storeGrid.appendChild(card);
-
-    });
-
-}
-
-
-/* ============================
-   リセット
-============================ */
-
-function resetSearch() {
-
-    keywordInput.value = "";
-
-    categorySelect.value = "";
-
-    areaSelect.value = "";
-
-    displayStores(stores);
-
-}
-
-
-/* ============================
-   HTMLエスケープ
-============================ */
-
-function escapeHTML(value) {
-
-    return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-
-}
-
-
-/* ============================
-   Enterキーで検索
-============================ */
-
-keywordInput.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (event.key === "Enter") {
-
-            searchStores();
-
-        }
-
-    }
-);
-
-
-/* ============================
-   自動検索
-============================ */
-
-categorySelect.addEventListener(
-    "change",
-    searchStores
-);
-
-areaSelect.addEventListener(
-    "change",
-    searchStores
-);
-
-
-/* 起動 */
 initialize();
+
+loading.style.display="none";
+
+}catch(e){
+
+loading.innerHTML="データを読み込めませんでした。";
+
+console.error(e);
+
+}
+
+}
+
+function initialize(){
+
+const categories=[...new Set(stores.map(s=>s.category))].sort();
+
+categories.forEach(c=>{
+const option=document.createElement("option");
+option.value=c;
+option.textContent=c;
+category.appendChild(option);
+});
+
+const areas=[...new Set(stores.map(s=>getArea(s.address)))].sort();
+
+areas.forEach(a=>{
+const option=document.createElement("option");
+option.value=a;
+option.textContent=a;
+area.appendChild(option);
+});
+
+displayStores(stores);
+
+}
+
+function getArea(address){
+
+const m=address.match(/^([^0-9０-９丁目番地-]+町)/);
+
+if(m) return m[1];
+
+const m2=address.match(/^([^0-9０-９]+丁目)/);
+
+if(m2) return m2[1];
+
+return "その他";
+
+}
+
+function searchStores(){
+
+const key=keyword.value.trim().toLowerCase();
+
+const cat=category.value;
+const ar=area.value;
+
+const results=stores.filter(store=>{
+
+const text=(store.name+" "+store.kana+" "+store.address+" "+store.facility).toLowerCase();
+
+return(
+(!key||text.includes(key))&&
+(!cat||store.category===cat)&&
+(!ar||getArea(store.address)===ar)
+);
+
+});
+
+displayStores(results);
+
+}
+
+function displayStores(list){
+
+grid.innerHTML="";
+count.textContent=list.length;
+
+if(list.length===0){
+
+noResult.style.display="block";
+return;
+
+}
+
+noResult.style.display="none";
+
+list.forEach(store=>{
+
+const card=document.createElement("article");
+card.className="store-card";
+
+const map="https://www.google.com/maps/search/?api=1&query="+encodeURIComponent("石川県小松市 "+store.address);
+
+card.innerHTML=`
+<div class="category">${escape(store.category)}</div>
+<div class="store-name">${escape(store.name)}</div>
+${store.facility?`<div class="facility">📍${escape(store.facility)}</div>`:""}
+<div class="address">${escape(store.address)}</div>
+<a class="map-button" href="${map}" target="_blank">Googleマップで見る</a>
+`;
+
+grid.appendChild(card);
+
+});
+
+}
+
+function escape(str){
+
+return String(str)
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+
+}
+
+keyword.addEventListener("input",searchStores);
+category.addEventListener("change",searchStores);
+area.addEventListener("change",searchStores);
+
+loadStores();
 
 </script>
 
